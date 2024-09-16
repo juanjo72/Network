@@ -1,8 +1,8 @@
 //
-//  File.swift
-//  
+//  SenderTests.swift
 //
-//  Created by Juanjo García Villaescusa on 1/4/24.
+//
+//  Created on 1/4/24.
 //
 
 @testable import Network

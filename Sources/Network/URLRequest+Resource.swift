@@ -1,8 +1,8 @@
 //
-//  File.swift
-//  
+//  URLRequest+Resource.swift
 //
-//  Created by Juanjo García Villaescusa on 19/3/24.
+//
+//  Created on 19/3/24.
 //
 
 import Foundation
@@ -13,16 +13,18 @@ extension URLRequest {
             url: resource.url,
             resolvingAgainstBaseURL: true
         )!
-        urlComponents.queryItems = resource.parameters?.map(Foundation.URLQueryItem.init)
+        urlComponents.queryItems = resource.parameters?.map(URLQueryItem.init)
         let url = urlComponents.url!
         var request = URLRequest(
             url: url,
             cachePolicy: CachePolicy.reloadIgnoringLocalCacheData,
             timeoutInterval: resource.requestTimeOut
         )
-        request.httpMethod = resource.httpMethod.rawValue
-        resource.httpHeaders?.forEach { header in
-            request.setValue(header.value, forHTTPHeaderField: header.key)
+        resource.httpHeaders?.forEach { eachField in
+            request.setValue(
+                eachField.value,
+                forHTTPHeaderField: eachField.key
+            )
         }
         self = request
     }

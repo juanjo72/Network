@@ -1,8 +1,8 @@
 //
-//  File.swift
-//  
+//  RequestSenderProtocolMock.swift
 //
-//  Created by Juanjo García Villaescusa on 12/8/24.
+//
+//  Created on 12/8/24.
 //
 
 @testable import Network

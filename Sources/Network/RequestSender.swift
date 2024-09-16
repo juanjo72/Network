@@ -1,8 +1,8 @@
 //
-//  Sender.swift
+//  RequestSender.swift
 //
 //
-//  Created by Juanjo García Villaescusa on 19/3/24.
+//  Created on 19/3/24.
 //
 
 import Foundation

@@ -1,37 +1,46 @@
-// The Swift Programming Language
-// https://docs.swift.org/swift-book
+//
+//  RemoteResource.swift
+//
+//
+//  Created on 19/3/24.
+//
 
 import Foundation
 
-public enum RequestMethod: String {
-    case get = "GET"
-    case post = "POST"
-    case put = "PUT"
-    case patch = "PATCH"
-    case delete = "DELETE"
-}
-
 public struct RemoteResource<T> {
-    public var url: Foundation.URL
-    public var httpMethod: RequestMethod
-    public var httpHeaders: [String: String]?
-    public var parameters: [String: String]?
-    public var requestTimeOut: TimeInterval
-    public var decoder: (Data) throws -> T
+    let url: URL
+    let httpHeaders: [String: String]?
+    let parameters: [String: String]?
+    let requestTimeOut: TimeInterval
+    let decoder: (Data) throws -> T
     
     public init(
         url: URL,
-        httpMethod: RequestMethod = .get,
         httpHeaders: [String: String]? = nil,
         parameters: [String: String]? = nil,
         requestTimeOut: TimeInterval = 5,
         decoder: @escaping (Data) throws -> T
     ) {
         self.url = url
-        self.httpMethod = httpMethod
         self.httpHeaders = httpHeaders
         self.parameters = parameters
         self.requestTimeOut = requestTimeOut
         self.decoder = decoder
+    }
+    
+    public init(
+        url: URL,
+        httpHeaders: [String: String]? = nil,
+        parameters: [String: String]? = nil,
+        requestTimeOut: TimeInterval = 5
+    ) where T: Decodable {
+        self.url = url
+        self.httpHeaders = httpHeaders
+        self.parameters = parameters
+        self.requestTimeOut = requestTimeOut
+
+        self.decoder = {
+            try JSONDecoder().decode(T.self, from: $0)
+        }
     }
 }
