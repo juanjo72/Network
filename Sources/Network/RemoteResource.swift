@@ -7,19 +7,19 @@
 
 import Foundation
 
-public struct RemoteResource<T> {
+public struct RemoteResource<T>: Sendable {
     let url: URL
     let httpHeaders: [String: String]?
     let parameters: [String: String]?
     let requestTimeOut: TimeInterval
-    let decoder: (Data) throws -> T
-    
+    let decoder: @Sendable (Data) throws -> T
+
     public init(
         url: URL,
         httpHeaders: [String: String]? = nil,
         parameters: [String: String]? = nil,
         requestTimeOut: TimeInterval = 5,
-        decoder: @escaping (Data) throws -> T
+        decoder: @escaping @Sendable (Data) throws -> T
     ) {
         self.url = url
         self.httpHeaders = httpHeaders

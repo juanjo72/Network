@@ -7,11 +7,11 @@
 
 import Foundation
 
-public protocol RequestSenderProtocol {
+public protocol RequestSenderProtocol: Sendable {
     func request<T>(resource: RemoteResource<T>) async throws -> T
 }
 
-public struct RequestSender: RequestSenderProtocol {
+public actor RequestSender: RequestSenderProtocol {
     private let sender: (URLRequest) async throws -> (Data, URLResponse)
 
     public static func shared() -> Self {
